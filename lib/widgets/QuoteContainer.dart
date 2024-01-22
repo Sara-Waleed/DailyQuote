@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../model/Qoute_Model.dart';
 
 class QuoteContainer extends StatelessWidget {
-  final Quote quote;
+  final QuoteModel quote;
 
   QuoteContainer({required this.quote});
 
@@ -32,7 +32,7 @@ class QuoteContainer extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            'Tags: ${quote.tags?.join(", ") ?? "No tags"}',
+            'Tags: ${quote.tags.join(", ")}',
             style: TextStyle(fontSize: 14),
           ),
           SizedBox(height: 8),

@@ -1,61 +1,43 @@
-class QuotesResponse {
-  int? count;
-  int? totalCount;
-  int? page;
-  int? totalPages;
-  int? lastItemIndex;
-  List<Quote>? results;
+class QuoteListModel {
+  List<QuoteModel> quotes;
 
-  QuotesResponse({
-    this.count,
-    this.totalCount,
-    this.page,
-    this.totalPages,
-    this.lastItemIndex,
-    this.results,
+  QuoteListModel({
+    required this.quotes,
   });
 
-  factory QuotesResponse.fromJson(Map<String, dynamic> json) {
-    return QuotesResponse(
-      count: json['count'],
-      totalCount: json['totalCount'],
-      page: json['page'],
-      totalPages: json['totalPages'],
-      lastItemIndex: json['lastItemIndex'],
-      results: (json['results'] as List<dynamic>?)
-          ?.map((result) => Quote.fromJson(result))
-          .toList(),
-    );
+  factory QuoteListModel.fromJson(List<dynamic> json) {
+    List<QuoteModel> quotes = json.map((quote) => QuoteModel.fromJson(quote)).toList();
+    return QuoteListModel(quotes: quotes);
   }
 }
 
-class Quote {
-  String? id;
-  String? author;
-  String? content;
-  List<String>? tags;
-  String? authorSlug;
-  int? length;
-  String? dateAdded;
-  String? dateModified;
+class QuoteModel {
+  String id;
+  String author;
+  String content;
+  List<String> tags;
+  String authorSlug;
+  int length;
+  String dateAdded;
+  String dateModified;
 
-  Quote({
-    this.id,
-    this.author,
-    this.content,
-    this.tags,
-    this.authorSlug,
-    this.length,
-    this.dateAdded,
-    this.dateModified,
+  QuoteModel({
+    required this.id,
+    required this.author,
+    required this.content,
+    required this.tags,
+    required this.authorSlug,
+    required this.length,
+    required this.dateAdded,
+    required this.dateModified,
   });
 
-  factory Quote.fromJson(Map<String, dynamic> json) {
-    return Quote(
+  factory QuoteModel.fromJson(Map<String, dynamic> json) {
+    return QuoteModel(
       id: json['_id'],
       author: json['author'],
       content: json['content'],
-      tags: (json['tags'] as List<dynamic>?)?.cast<String>(),
+      tags: List<String>.from(json['tags']),
       authorSlug: json['authorSlug'],
       length: json['length'],
       dateAdded: json['dateAdded'],

@@ -3,12 +3,22 @@ import 'package:http/http.dart' as http;
 
 import '../model/Qoute_Model.dart';
 
-Future<QuotesResponse> fetchQuotes() async {
-  final response = await http.get(Uri.parse('YOUR_API_ENDPOINT_HERE'));
 
+Future<QuoteListModel> fetchQuotes() async {
+  final response = await http.get(Uri.parse('https://api.quotable.io/quotes'));
   if (response.statusCode == 200) {
-    return QuotesResponse.fromJson(json.decode(response.body));
+    return QuoteListModel.fromJson(response.body as List);
   } else {
     throw Exception('Failed to load quotes');
   }
 }
+
+// Future<QuoteListModel> fetchQuotes() async {
+//   final response = await http.get(Uri.parse('https://api.quotable.io/quotes'));
+//
+//   if (response.statusCode == 200) {
+//     return QuoteListModel.fromJson(json.decode(response.body));
+//   } else {
+//     throw Exception('Failed to load quotes');
+//   }
+// }
