@@ -1,3 +1,4 @@
+![1](https://github.com/Sara-Waleed/DailyQuote/assets/92535228/201879df-2e48-4624-83aa-9dd3fc958423)
 # dailyqoute
 
 A new Flutter project.
