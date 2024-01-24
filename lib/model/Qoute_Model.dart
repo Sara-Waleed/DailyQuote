@@ -1,47 +1,19 @@
-class QuoteListModel {
-  List<QuoteModel> quotes;
-
-  QuoteListModel({
-    required this.quotes,
-  });
-
-  factory QuoteListModel.fromJson(List<dynamic> json) {
-    List<QuoteModel> quotes = json.map((quote) => QuoteModel.fromJson(quote)).toList();
-    return QuoteListModel(quotes: quotes);
-  }
-}
-
 class QuoteModel {
-  String id;
-  String author;
-  String content;
-  List<String> tags;
-  String authorSlug;
-  int length;
-  String dateAdded;
-  String dateModified;
+  final String quote; // Use lowercase for field names
+  final String author; // Use lowercase for field names
+  final String category;
 
   QuoteModel({
-    required this.id,
+    required this.quote,
     required this.author,
-    required this.content,
-    required this.tags,
-    required this.authorSlug,
-    required this.length,
-    required this.dateAdded,
-    required this.dateModified,
+    required this.category,
   });
 
   factory QuoteModel.fromJson(Map<String, dynamic> json) {
     return QuoteModel(
-      id: json['_id'],
-      author: json['author'],
-      content: json['content'],
-      tags: List<String>.from(json['tags']),
-      authorSlug: json['authorSlug'],
-      length: json['length'],
-      dateAdded: json['dateAdded'],
-      dateModified: json['dateModified'],
+      quote: json["quote"] as String,
+      author: json["author"] as String,
+      category: json["category"] as String,
     );
   }
 }

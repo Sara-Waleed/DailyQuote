@@ -1,24 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../model/Qoute_Model.dart';
 
+class ApiNinjasService {
+  final String apiKey;
 
-Future<QuoteListModel> fetchQuotes() async {
-  final response = await http.get(Uri.parse('https://api.quotable.io/quotes'));
-  if (response.statusCode == 200) {
-    return QuoteListModel.fromJson(response.body as List);
-  } else {
-    throw Exception('Failed to load quotes');
+  ApiNinjasService({required this.apiKey});
+
+  Future<List<QuoteModel>> fetchQuotes(String category) async {
+    final url = 'https://api.api-ninjas.com/v1/quotes?category=$category';
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {'X-Api-Key': apiKey},
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonList = json.decode(response.body);
+        List<QuoteModel> quotes = jsonList
+            .map((json) => QuoteModel.fromJson(json))
+            .toList();
+
+        return quotes;
+      } else {
+        throw Exception('Failed to load quotes. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('Error fetching quotes: $error');
+    }
   }
 }
-
-// Future<QuoteListModel> fetchQuotes() async {
-//   final response = await http.get(Uri.parse('https://api.quotable.io/quotes'));
-//
-//   if (response.statusCode == 200) {
-//     return QuoteListModel.fromJson(json.decode(response.body));
-//   } else {
-//     throw Exception('Failed to load quotes');
-//   }
-// }
