@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Helper/Request.dart';
 import '../model/Qoute_Model.dart';
+import '../widgets/QuoteContainer.dart';
 
 class QuotesListView extends StatefulWidget {
   @override
@@ -45,7 +46,9 @@ class _QuotesListViewState extends State<QuotesListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quotes List'),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        title: const Text('Quotes List'),
       ),
       body: Column(
         children: [
@@ -54,7 +57,7 @@ class _QuotesListViewState extends State<QuotesListView> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: Colors.green),
                 );
               } else if (snapshot.hasError) {
                 return Center(
@@ -66,20 +69,23 @@ class _QuotesListViewState extends State<QuotesListView> {
                 );
               } else {
                 return Expanded(
-                  child: QuoteContainerList(quotes: snapshot.data!),
+                  child: Center(child: QuoteContainerList(quotes: snapshot.data!)),
                 );
               }
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green
+            ),
             onPressed: () {
               // Load data for the next category
               setState(() {
                 currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
               });
             },
-            child: Text('Load Next Category'),
+            child: const Text('Load Next Category'),
           ),
         ],
       ),
@@ -95,7 +101,7 @@ class QuoteContainerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> quoteWidgets = quotes.map((quote) {
-      return QuoteContainer(quote: quote);
+      return Center(child: QuoteContainer(quote: quote));
     }).toList();
 
     return ListView(
@@ -104,34 +110,4 @@ class QuoteContainerList extends StatelessWidget {
   }
 }
 
-class QuoteContainer extends StatelessWidget {
-  final QuoteModel quote;
 
-  QuoteContainer({required this.quote});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            quote.quote,
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          Text(
-            "- ${quote.author}",
-            style: TextStyle(fontSize: 16.0),
-          ),
-        ],
-      ),
-    );
-  }
-}

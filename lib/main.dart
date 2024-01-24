@@ -1,3 +1,4 @@
+import 'package:dailyqoute/screens/Splach.dart';
 import 'package:dailyqoute/screens/qoute.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: QuotesListView(),
+    home: Splach(),
   ));
 }
