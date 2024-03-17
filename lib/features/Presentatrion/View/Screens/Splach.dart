@@ -1,4 +1,4 @@
-import 'package:dailyqoute/screens/qoute.dart';
+import 'package:dailyqoute/features/Presentatrion/View/Screens/qoute.dart';
 import 'package:flutter/material.dart';
 
 class Splach  extends StatelessWidget {
@@ -17,7 +17,7 @@ class Splach  extends StatelessWidget {
                   backgroundColor: Colors.green
                 ),
                 onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>QuotesListView(),));
+              //Navigator.push(context, MaterialPageRoute(builder: (context) =>QuotesListView(),));
             }, child: Text("Welcom ",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),)),
           ),
         ],
