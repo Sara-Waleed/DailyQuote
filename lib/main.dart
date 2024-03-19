@@ -57,7 +57,7 @@ class _QuoteListScreenState extends State<QuoteListScreen> {
                 scrollDirection: Axis.vertical,
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return _buildQuotePage(snapshot.data![index]);
+                  return _buildQuotePage(snapshot.data![index], index);
                 },
               );
             }
@@ -67,13 +67,23 @@ class _QuoteListScreenState extends State<QuoteListScreen> {
     );
   }
 
-  Widget _buildQuotePage(Quote quote) {
+  Widget _buildQuotePage(Quote quote, int index) {
+    List<Color> pageColors = [
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.purple,
+      Colors.red,
+
+    ];
+    int colorIndex = index % pageColors.length;
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/back.jpg'), // Replace with your image path
-          fit: BoxFit.cover,
-        ),
+        color: pageColors[colorIndex],
+        // image: DecorationImage(
+        //   image: AssetImage('assets/back.jpg'), // Replace with your image path
+        //   fit: BoxFit.cover,
+        // ),
       ),
       child: Center(
         child: Padding(
