@@ -9,14 +9,14 @@ Future<List<Quote>> fetchAllQuotes() async {
 
   try {
     for (int page = 1; page <= totalPages; page++) {
-      final url = Uri.parse('https://api.quotable.io/quotes?page=$page');
+      final url = Uri.parse('https://api.quotable.io/quotes?page=1');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
         final List<dynamic> quotesData = jsonDecode(response.body)['results'];
         allQuotes.addAll(quotesData.map((quote) => Quote.fromJson(quote)));
       } else {
-        print('Failed to fetch quotes for page $page');
+        print('Failed to fetch quotes for page 1');
         // Handle error if needed
       }
     }
