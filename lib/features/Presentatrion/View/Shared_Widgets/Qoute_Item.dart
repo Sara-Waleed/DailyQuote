@@ -1,89 +1,84 @@
-import 'package:dailyqoute/features/Data/models/Qoute_Model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class QouteItem extends StatefulWidget {
-  const QouteItem({required this.Author, required this.Content,Key? key}) : super(key: key);
-  final String Content;
-  final String Author;
-  @override
-  State<QouteItem> createState() => _QouteItemState();
-}
+import 'package:shared_preferences/shared_preferences.dart';
 
-class _QouteItemState extends State<QouteItem> {
+import '../../../Data/models/Qoute_Model.dart';
+
+
+class QouteItem extends StatelessWidget {
+  const QouteItem({required this.author, required this.content, Key? key})
+      : super(key: key);
+  final String content;
+  final String author;
+
   @override
   Widget build(BuildContext context) {
-    return  Column(
-mainAxisAlignment: MainAxisAlignment.end,
+    return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            //    color: pageColors[colorIndex],
-              image: DecorationImage(
-                image: AssetImage('assets/back.jpg'),
-              )
-          ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
+        Image.asset(
+          'assets/back.jpg',
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  '$content',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                '$author',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 50),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '${widget.Content}',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                  FloatingActionButton(
+                    backgroundColor: Colors.grey,
+                    onPressed: () {
+                      // Implement sending functionality
+                    },
+                    child: Icon(Icons.send, color: Colors.black),
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    '${widget.Author}',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                  SizedBox(width: 30),
+                  FloatingActionButton(
+                    backgroundColor: Colors.grey,
+                    onPressed: () {
+                      _addToFavorites(author);
+                    },
+                    child: Icon(Icons.favorite_border, color: Colors.black),
                   ),
                 ],
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 20,
-          right: 10,
-          child: Column(
-            children: [
-              FloatingActionButton(
-                backgroundColor: Colors.grey,
-                onPressed: () {
-                  setState(() {
-                    Icon(Icons.send, color: Colors.blueGrey,);
-                  });
-                },
-                child: Icon(Icons.send, color: Colors.black,)
-
-
-                ,),
-
-              SizedBox(height: 10,),
-              FloatingActionButton(
-                backgroundColor: Colors.grey,
-                onPressed: () {},
-                child: Icon(Icons.favorite_border, color: Colors
-                    .black,),),
             ],
           ),
-
-        )
+        ),
       ],
-
     );
+  }
 
-
-
+  Future<void> _addToFavorites(String author) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> favorites = prefs.getStringList('favorites') ?? [];
+    favorites.add(author);
+    await prefs.setStringList('favorites', favorites);
   }
 }

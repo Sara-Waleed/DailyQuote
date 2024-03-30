@@ -1,29 +1,29 @@
-import 'package:dailyqoute/features/Presentatrion/View/Screens/qoute.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../main.dart';
-
-class Splach  extends StatelessWidget {
-  const Splach ({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset("assets/splach.jpg"),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green
-                ),
-                onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>MyHomePage(),));
-            }, child: Text("Welcom ",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),)),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// import 'package:dailyqoute/features/Presentatrion/View/Screens/qoute.dart';
+// import 'package:flutter/material.dart';
+//
+//
+//
+// class Splach  extends StatelessWidget {
+//   const Splach ({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           Image.asset("assets/splach.jpg"),
+//           Align(
+//             alignment: Alignment.bottomCenter,
+//             child: ElevatedButton(
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: Colors.green
+//                 ),
+//                 onPressed: (){
+//               Navigator.push(context, MaterialPageRoute(builder: (context) =>QuoteListScreen(),));
+//             }, child: Text("Welcom ",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30),)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
